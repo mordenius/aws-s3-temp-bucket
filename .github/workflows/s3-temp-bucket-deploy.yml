@@ -39,8 +39,8 @@ jobs:
                 "Statement": [
                     {
                         "Sid": "PublicReadGetObject",
-                        "Effect": "Allow",
                         "Principal": "*",
+                        "Effect": "Allow",
                         "Action": "s3:GetObject",
                         "Resource": "arn:aws:s3:::${{ env.AWS_TEMP_BUCKET_NAME }}/*"
                     }
