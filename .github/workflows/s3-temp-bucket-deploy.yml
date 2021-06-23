@@ -51,4 +51,4 @@ jobs:
       - name: Deploy static to Temp S3 Bucket
         run: aws s3 sync ./public s3://${{ env.AWS_TEMP_BUCKET_NAME }} --delete
       - name: Tell AWS this should be website
-        run: aws s3 website s3://${{ env.AWS_TEMP_BUCKET_NAME }}/ --index-document index.html --error-document error.html
+        run: aws s3 website s3://${{ env.AWS_TEMP_BUCKET_NAME }}/ --index-document v2/index.html --error-document error.html
