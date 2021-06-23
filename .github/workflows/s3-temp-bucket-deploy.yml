@@ -2,7 +2,7 @@ name: aws-s3-temp-bucket-deploy
 
 on:
   # pull_request:
-    # types: [ labeled ]
+  # types: [ labeled ]
   push:
     branches:
       - main
@@ -29,8 +29,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_DEPLOY_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_DEPLOY_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION_NAME }}
-      
+
       - name: Create S3 Temp Bucket
-        run: aws s3 create-bucket --bucket ${{ env.AWS_TEMP_BUCKET_NAME }} --region ${{ env.AWS_REGION_NAME }} 
+        run: aws s3api create-bucket --bucket ${{ env.AWS_TEMP_BUCKET_NAME }} --region ${{ env.AWS_REGION_NAME }} --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION_NAME }}
+      - name: Set bucket public policy
+        run: aws s3api put-bucket-policy --bucket ${{ env.AWS_TEMP_BUCKET_NAME }} --policy file:///tmp/bucket_policy.json
       - name: Deploy static to Temp S3 Bucket
         run: aws s3 sync ./ s3://${{ env.AWS_TEMP_BUCKET_NAME }} --delete
+      - name: Tell AWS this should be website
+        run: aws s3 website s3://${{ env.AWS_TEMP_BUCKET_NAME }}/ --index-document index.html --error-document error.html
