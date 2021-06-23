@@ -1,0 +1,30 @@
+name: aws-s3-temp-bucket-deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  NODE_VERSION: 14.x
+  AWS_REGION_NAME: eu-central-1
+  AWS_TEMP_BUCKET_NAME: 33512ddb2c4053afcbafb211e91935ee91e09ef788d7afbce8a163f2ef48afd8
+
+jobs:
+  build_job:
+    name: A job to build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_DEPLOY_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_DEPLOY_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION_NAME }}
+      
+      - name: Deploy static to Temp S3 Bucket
+        run: aws s3 sync ./build/ s3://${{ env.AWS_TEMP_BUCKET_NAME }} --delete
