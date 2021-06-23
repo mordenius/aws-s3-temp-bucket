@@ -11,7 +11,7 @@ env:
   NODE_VERSION: 14.x
   LABEL_NAME_TRIGGER: bug
   AWS_REGION_NAME: eu-central-1
-  AWS_TEMP_BUCKET_NAME: 33512ddb2c4053afcbafb211e91935ee91e09ef788d7afbce8a163f2ef48afd8
+  AWS_TEMP_BUCKET_NAME: 0cbef5b1208675df69e61d1c5175ca8d73b629
 
 jobs:
   build_job:
