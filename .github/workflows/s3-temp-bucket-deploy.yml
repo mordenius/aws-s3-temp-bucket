@@ -49,6 +49,6 @@ jobs:
       - name: Set bucket public policy
         run: aws s3api put-bucket-policy --bucket ${{ env.AWS_TEMP_BUCKET_NAME }} --policy file://bucket_policy.json
       - name: Deploy static to Temp S3 Bucket
-        run: aws s3 sync ./ s3://${{ env.AWS_TEMP_BUCKET_NAME }} --delete
+        run: aws s3 sync ./public s3://${{ env.AWS_TEMP_BUCKET_NAME }} --delete
       - name: Tell AWS this should be website
         run: aws s3 website s3://${{ env.AWS_TEMP_BUCKET_NAME }}/ --index-document index.html --error-document error.html
