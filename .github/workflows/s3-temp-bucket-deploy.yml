@@ -1,17 +1,21 @@
 name: aws-s3-temp-bucket-deploy
 
 on:
+  # pull_request:
+    # types: [ labeled ]
   push:
     branches:
       - main
 
 env:
   NODE_VERSION: 14.x
+  LABEL_NAME_TRIGGER: bug
   AWS_REGION_NAME: eu-central-1
   AWS_TEMP_BUCKET_NAME: 33512ddb2c4053afcbafb211e91935ee91e09ef788d7afbce8a163f2ef48afd8
 
 jobs:
   build_job:
+    # if: ${{ github.event.label.name == env.LABEL_NAME_TRIGGER }}
     name: A job to build and deploy
     runs-on: ubuntu-latest
 
@@ -26,5 +30,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_DEPLOY_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION_NAME }}
       
+      - name: Create S3 Temp Bucket
+        run: aws s3 create-bucket --bucket ${{ env.AWS_TEMP_BUCKET_NAME }} --region ${{ env.AWS_REGION_NAME }} 
       - name: Deploy static to Temp S3 Bucket
         run: aws s3 sync ./ s3://${{ env.AWS_TEMP_BUCKET_NAME }} --delete
