@@ -7,7 +7,7 @@ on:
 env:
   NODE_VERSION: 14.x
   AWS_REGION_NAME: eu-central-1
-  AWS_TEMP_BUCKET_NAME: dash-pr-temp-d1c5175ca8d73b629
+  AWS_TEMP_BUCKET_NAME: temporary-pr${{ github.event.number }}
 
 jobs:
   build_job:

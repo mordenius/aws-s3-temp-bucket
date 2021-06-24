@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION_NAME: eu-central-1
-  AWS_TEMP_BUCKET_NAME: daslab-dash-pr-temp-${{ github.event.number }}
+  AWS_TEMP_BUCKET_NAME: temporary-pr${{ github.event.number }}
 
 jobs:
   build_job:
