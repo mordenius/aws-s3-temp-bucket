@@ -11,7 +11,7 @@ env:
   NODE_VERSION: 14.x
   LABEL_NAME_TRIGGER: bug
   AWS_REGION_NAME: eu-central-1
-  AWS_TEMP_BUCKET_NAME: 0cbef5b1208675df69e61d1c5175ca8d73b629
+  AWS_TEMP_BUCKET_NAME: dash-pr-temp-d1c5175ca8d73b629
 
 jobs:
   build_job:
@@ -51,4 +51,4 @@ jobs:
       - name: Deploy static to Temp S3 Bucket
         run: aws s3 sync ./public s3://${{ env.AWS_TEMP_BUCKET_NAME }} --delete
       - name: Tell AWS this should be website
-        run: aws s3 website s3://${{ env.AWS_TEMP_BUCKET_NAME }}/ --index-document v2/index.html --error-document error.html
+        run: aws s3 website s3://${{ env.AWS_TEMP_BUCKET_NAME }}/ --index-document index.html --error-document error.html
