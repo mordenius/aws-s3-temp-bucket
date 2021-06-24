@@ -5,14 +5,12 @@ on:
     types: [ closed ]
 
 env:
-  NODE_VERSION: 14.x
-  LABEL_NAME_TRIGGER: temp-deploy
   AWS_REGION_NAME: eu-central-1
   AWS_TEMP_BUCKET_NAME: daslab-dash-pr-temp-${{ github.event.number }}
 
 jobs:
   build_job:
-    if: ${{ github.event.label.name == env.LABEL_NAME_TRIGGER }}
+    if: ${{ github.event.label.name == 'temp-deploy' }}
     name: A job to build and deploy
     runs-on: ubuntu-latest
 

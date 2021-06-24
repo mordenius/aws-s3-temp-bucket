@@ -6,13 +6,12 @@ on:
 
 env:
   NODE_VERSION: 14.x
-  LABEL_NAME_TRIGGER: temp-deploy
   AWS_REGION_NAME: eu-central-1
   AWS_TEMP_BUCKET_NAME: dash-pr-temp-d1c5175ca8d73b629
 
 jobs:
   build_job:
-    if: ${{ github.event.label.name == env.LABEL_NAME_TRIGGER }}
+    if: ${{ github.event.label.name == 'temp-deploy' }}
     name: A job to build and deploy
     runs-on: ubuntu-latest
 
