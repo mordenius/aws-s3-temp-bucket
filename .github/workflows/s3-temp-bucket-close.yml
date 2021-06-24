@@ -2,7 +2,7 @@ name: aws-s3-temp-bucket-close
 
 on:
   pull_request:
-    types: [ closed ]
+    types: [ unlabeled ]
 
 env:
   AWS_REGION_NAME: eu-central-1
